@@ -1,0 +1,1 @@
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python filter_and_combine_excel.py
