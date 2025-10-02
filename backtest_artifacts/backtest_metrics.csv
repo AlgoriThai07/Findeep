@@ -1,0 +1,4 @@
+model,MAE,RMSE,MAE_billions,RMSE_billions,valid_predictions
+arima_naive,3881000000.0,3881000000.0,3.881,3.881,1
+arima_drift,5930000000.0,5930000000.0,5.93,5.93,1
+xgb_point,318000256.0,318000256.0,0.318000256,0.318000256,1

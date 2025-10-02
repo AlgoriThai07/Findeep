@@ -1,1 +1,27 @@
+# Initial setup - install basic packages
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; pip install requests pandas openpyxl python-dateutil
+
+# Install parquet support and ML libraries
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; pip install pyarrow fastparquet scikit-learn xgboost
+
+# Install additional requirements (if requirements.txt exists)
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; pip install -r requirements.txt
+
+# Data pipeline - fetch and process 10-Q data
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python tesla_10q_pipeline.py
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python JP_10q_pipeline_full.py
 C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python filter_and_combine_excel.py
+
+# ML pipeline - train baselines and evaluate
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python run_baselines.py
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python run_eval.py
+
+# Validate LLM training data (optional)
+C:/Users/thai0/OneDrive/Desktop/Mentorship/Experiences/Findeep/.venv/Scripts/activate.bat; python validate_llm_data.py
+
+# LLM Fine-tuning (on Google Colab with GPU)
+# 1. Run validation script above to create colab zip
+# 2. Upload findeep_llm_colab.zip to Google Colab
+# 3. Follow instructions in COLAB_LLM_SETUP.md
+# 4. In Colab: pip install -r colab_requirements.txt
+# 5. In Colab: python colab_llm_finetune.py

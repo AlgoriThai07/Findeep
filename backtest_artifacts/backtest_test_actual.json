@@ -1,0 +1,38 @@
+[
+  {
+    "Company":"Tesla",
+    "Date":"2024-09-30T00:00:00.000",
+    "Assets":119852000000,
+    "CashAndCashEquivalentsAtCarryingValue":18111000000,
+    "CostOfRevenue":20185000000,
+    "EarningsPerShareDiluted":0.62,
+    "GrossProfit":4997000000,
+    "Liabilities":49142000000,
+    "NetCashProvidedByUsedInFinancingActivities":2868000000,
+    "NetCashProvidedByUsedInInvestingActivities":-11184000000,
+    "NetCashProvidedByUsedInOperatingActivities":10109000000,
+    "NetIncomeLoss":2167000000,
+    "OperatingExpenses":2280000000,
+    "OperatingIncomeLoss":2717000000,
+    "Revenues":25182000000,
+    "StockholdersEquity":69931000000
+  },
+  {
+    "Company":"JP Morgan",
+    "Date":"2024-09-30T00:00:00.000",
+    "Assets":4210048000000,
+    "CashAndCashEquivalentsAtCarryingValue":"N\/A",
+    "CostOfRevenue":"N\/A",
+    "EarningsPerShareDiluted":4.37,
+    "GrossProfit":"N\/A",
+    "Liabilities":3864212000000,
+    "NetCashProvidedByUsedInFinancingActivities":179152000000,
+    "NetCashProvidedByUsedInInvestingActivities":-181023000000,
+    "NetCashProvidedByUsedInOperatingActivities":-189770000000,
+    "NetIncomeLoss":12898000000,
+    "OperatingExpenses":"N\/A",
+    "OperatingIncomeLoss":"N\/A",
+    "Revenues":"N\/A",
+    "StockholdersEquity":345836000000
+  }
+]

@@ -1,0 +1,8 @@
+# Project configuration
+data_path: ./filtered_combined.json   # update if your file lives elsewhere
+artifacts_dir: ./artifacts
+target_kpi: Revenues                  # or NetIncomeLoss, CashAndCashEquivalentsAtCarryingValue
+min_points_per_company: 3             # need 3 rows to compute lag_1 & lag_2 and predict t+1
+horizon: 1                            # predict next period
+validation_fraction: 0.2              # company-wise split for XGB/LLM dataset
+seed: 42
