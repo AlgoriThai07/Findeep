@@ -41,7 +41,7 @@ def get_submissions(cik: str) -> dict:
 def get_companyfacts(cik: str) -> dict:
     return get_json(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json")
 
-# 1) Latest Tesla 10-Q metadata (filing dates/periods/accessions)
+# 1) Latest Tesla metadata (filing dates/periods/accessions) for 10-Q and 10-K
 
 from datetime import datetime, timedelta
 
@@ -55,23 +55,23 @@ accessions = recent.get("accessionNumber", [])
 # Calculate the date 10 years ago from today
 ten_years_ago = (datetime.now() - timedelta(days=365*10)).date()
 
-ten_q_meta = []
+quarterly_meta = []
 for form, fdate, period, acc in zip(forms, filing_dates, periods, accessions):
-    if form == "10-Q":
+    if form in ["10-Q", "10-K"]:
         # Parse the filing date
         try:
             filing_dt = pd.to_datetime(fdate).date()
         except Exception:
             continue
-        if filing_dt >= ten_years_ago:
-            ten_q_meta.append({
-                "filingDate": fdate,
-                "reportPeriod": period or None,
-                "accession": acc
-            })
+            if filing_dt >= ten_years_ago:
+                quarterly_meta.append({
+                    "filingDate": fdate,
+                    "reportPeriod": period or None,
+                    "accession": acc
+                })
 
-ten_q_meta = sorted(ten_q_meta, key=lambda x: x["filingDate"], reverse=True)
-allowed_accns = set(x["accession"].replace("-", "") for x in ten_q_meta if x["accession"])
+quarterly_meta = sorted(quarterly_meta, key=lambda x: x["filingDate"], reverse=True)
+allowed_accns = set(x["accession"].replace("-", "") for x in quarterly_meta if x["accession"])
 
 # 2) All Tesla XBRL facts
 facts = get_companyfacts(CIK)
@@ -92,7 +92,7 @@ def extract_quarterly_values(facts_json, tag):
             end = row.get("end")
             val = row.get("val")
             accn = row.get("accn")
-            if form != "10-Q" or end is None or val is None or accn is None:
+            if form not in ["10-Q", "10-K"] or end is None or val is None or accn is None:
                 continue
 
             # units filtering

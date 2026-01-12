@@ -245,3 +245,66 @@ Once trained, your LLM will:
 5. **Create automated reporting** combining predictions with reasoning
 
 Your fine-tuned LLM will now serve as an intelligent financial analyst that can blend quantitative models with qualitative insights! 🚀
+
+## 🔧 Quick Start: 2023 Tesla-only Finetune (pre-2023 train, 2023 eval)
+
+Use this if you uploaded the 2023-specific bundle `findeep_llm_2023_colab.zip`.
+
+### Cell A: Unzip and install requirements
+
+```python
+# Adjust filename if needed
+%cd /content
+!unzip -q findeep_llm_2023_colab.zip
+
+# Install requirements in Colab runtime
+!pip install -r colab_requirements.txt
+```
+
+### Cell B: (Optional) Choose a different base model
+
+```python
+# Default is HuggingFaceTB/SmolLM2-1.7B-Instruct; you can switch here
+import os
+os.environ["BASE_MODEL"] = "HuggingFaceTB/SmolLM2-1.7B-Instruct"
+```
+
+### Cell C: Run the 2023 workflow
+
+```python
+# This will:
+# - create artifacts/llm_train_pre2023.jsonl and artifacts/llm_val_2023.jsonl
+# - train QLoRA adapters into ./llm_ts_qlora
+# - save 2023 Q1..Q4 JSON outputs under slide_assets/llm_outputs_2023/
+!python colab_llm_finetune_tesla_2023.py
+```
+
+### Cell D (Optional): Inspect saved outputs
+
+```python
+import os, json, glob
+
+print("Adapters folder:", os.path.exists("llm_ts_qlora"))
+files = sorted(glob.glob("slide_assets/llm_outputs_2023/*.json"))
+print("Saved 2023 outputs:", files)
+if files:
+    with open(files[0], "r", encoding="utf-8") as f:
+        print("\nSample output:\n", f.read()[:600])
+```
+
+### Cell E (Optional): Download adapters and outputs
+
+```python
+# Zip the trained adapters and JSON outputs for download
+!zip -rq llm_ts_qlora_final.zip llm_ts_qlora/
+!zip -rq llm_outputs_2023.zip slide_assets/llm_outputs_2023/
+
+from google.colab import files
+files.download('llm_ts_qlora_final.zip')
+files.download('llm_outputs_2023.zip')
+```
+
+Notes:
+
+- The script prefers `artifacts/predictions.parquet` to build pre-2023 train and exact 2023Q1..Q4 validation examples. If missing, it falls back to `artifacts/llm_train.jsonl` (no year split).
+- Adapters are saved under `llm_ts_qlora/` with a `final_adapter/` for easy loading later.
